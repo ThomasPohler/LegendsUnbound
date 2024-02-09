@@ -70,10 +70,10 @@ public class Creature {
     }
     private void setHealthCurrent(int newHealthCurrent){
         if(newHealthCurrent <= 0){
-            throw new IllegalArgumentException("Creature.setHealthCurrent(newHealthCurrent = " + newHealthCurrent + ")");
+            Log.error("Creature.setHealthCurrent(newHealthCurrent = " + newHealthCurrent + ")");
         }
         if(newHealthCurrent > getHealthMax()){
-            throw new IllegalArgumentException("Creature.setHealthCurrent(newHealthCurrent = " + newHealthCurrent + "), healthMax = " + getHealthMax());
+            Log.error("Creature.setHealthCurrent(newHealthCurrent = " + newHealthCurrent + "), healthMax = " + getHealthMax());
         }
         healthCurrent = newHealthCurrent;
     }
@@ -83,7 +83,7 @@ public class Creature {
     }
     private void setHealthMax(int newHealthMax){
         if(newHealthMax <= 0){
-            throw new IllegalArgumentException("Creature.setHealthMax(newHealthMax = " + healthMax + ")");
+            Log.error("Creature.setHealthMax(newHealthMax = " + healthMax + ")");
         }
         int healthDiff = newHealthMax - healthMax;
         healthMax = newHealthMax;
@@ -101,7 +101,7 @@ public class Creature {
     }
     private void setHealthState(HealthState newHealthState){
         if((newHealthState == HealthState.DYING || newHealthState == HealthState.DEAD) && getHealthCurrent() > 0){
-            throw new IllegalArgumentException("Creature.setHealthState(newHealthState = " + newHealthState + ")");
+            Log.error("Creature.setHealthState(newHealthState = " + newHealthState + ")");
         }
         healthState = newHealthState;
     }
@@ -114,10 +114,10 @@ public class Creature {
     }
     private void setManaCurrent(int newManaCurrent){
         if(newManaCurrent <= 0){
-            throw new IllegalArgumentException("Creature.setManaCurrent(newManaCurrent = " + newManaCurrent + ")");
+            Log.error("Creature.setManaCurrent(newManaCurrent = " + newManaCurrent + ")");
         }
         if(newManaCurrent > getManaMax()){
-            throw new IllegalArgumentException("Creature.setManaCurrent(newManaCurrent = " + newManaCurrent + "), manaMax = " + getManaMax());
+            Log.error("Creature.setManaCurrent(newManaCurrent = " + newManaCurrent + "), manaMax = " + getManaMax());
         }
         manaCurrent = newManaCurrent;
     }
@@ -127,7 +127,7 @@ public class Creature {
     }
     private void setManaMax(int newManaMax){
         if(newManaMax <= 0){
-            throw new IllegalArgumentException("Creature.setManaMax(newManaMax = " + newManaMax + ")");
+            Log.error("Creature.setManaMax(newManaMax = " + newManaMax + ")");
         }
         int manaDiff = newManaMax - manaMax;
         manaMax = newManaMax;
@@ -147,10 +147,10 @@ public class Creature {
     }
     private void setMainActions(int newActionsMain){
         if(newActionsMain < 0){
-            throw new IllegalArgumentException("Creature.setMainActions(newActionsMain = " + newActionsMain + ")");
+            Log.error("Creature.setMainActions(newActionsMain = " + newActionsMain + ")");
         }
         if(newActionsMain > getMaxMainActions()){
-            throw new IllegalArgumentException("Creature.setMainActions(newActionsMain = " + newActionsMain + "), maxMainActions = " + getMaxMainActions());
+            Log.error("Creature.setMainActions(newActionsMain = " + newActionsMain + "), maxMainActions = " + getMaxMainActions());
         }
         actionsMain = newActionsMain;
     }
@@ -170,10 +170,10 @@ public class Creature {
     }
     private void setTacticalActions(int newActionsTactical){
         if(newActionsTactical < 0){
-            throw new IllegalArgumentException("Creature.setTacticalActions(newActionsTactical = " + newActionsTactical + ")");
+            Log.error("Creature.setTacticalActions(newActionsTactical = " + newActionsTactical + ")");
         }
         if(newActionsTactical > getMaxMainActions()){
-            throw new IllegalArgumentException("Creature.setTacticalActions(newActionsTactical = " + newActionsTactical + "), maxTacticalActions = " + getMaxTacticalActions());
+            Log.error("Creature.setTacticalActions(newActionsTactical = " + newActionsTactical + "), maxTacticalActions = " + getMaxTacticalActions());
         }
         actionsTactical = newActionsTactical;
     }
@@ -196,7 +196,7 @@ public class Creature {
     }
     private void setAttackCritMinimum(int newCritMin_attack){
         if(newCritMin_attack < 17 || newCritMin_attack > 20){
-            throw new IllegalArgumentException("Creature.setAttackCritMinimum(newCritMin_attack = " + newCritMin_attack + ")");
+            Log.error("Creature.setAttackCritMinimum(newCritMin_attack = " + newCritMin_attack + ")");
         }
         critMin_attack = newCritMin_attack;
     }
@@ -206,7 +206,7 @@ public class Creature {
     }
     private void setDefenseCritMinimum(int newCritMin_defense){
         if(newCritMin_defense < 17 || newCritMin_defense > 20){
-            throw new IllegalArgumentException("Creature.setDefenseCritMinimum(newCritMin_defense = " + newCritMin_defense + ")");
+            Log.error("Creature.setDefenseCritMinimum(newCritMin_defense = " + newCritMin_defense + ")");
         }
         critMin_defense = newCritMin_defense;
     }
@@ -247,10 +247,10 @@ public class Creature {
 
     public int heal(int healingAmount){
         if(healingAmount <= 0){
-            throw new IllegalArgumentException("Creature.heal(healingAmount = " + healingAmount + ")");
+            Log.error("Creature.heal(healingAmount = " + healingAmount + ")");
         }
         if(getHealthState() == HealthState.DEAD){
-            throw new IllegalStateException("Creature.heal() failed: creature is dead");
+            Log.error("Creature.heal() failed: creature is dead");
         }
         int potentialHealth = getHealthCurrent() + healingAmount;
         if(potentialHealth > getHealthMax()){
@@ -266,7 +266,7 @@ public class Creature {
     //TODO add tolerances and death stacks
     public int damage(int damageAmount){
         if(damageAmount <= 0){
-            throw new IllegalArgumentException("Creature.damage(damageAmount = " + damageAmount + ")");
+            Log.error("Creature.damage(damageAmount = " + damageAmount + ")");
         }
         setHealthCurrent(getHealthCurrent() - damageAmount);
         if(getHealthCurrent() <= 0){
@@ -324,7 +324,7 @@ public class Creature {
         }
 
         if(rollVal < 2 || rollVal > 20){
-            throw new IllegalStateException("Creature.makeGenericRoll() failed: rollVal = " + rollVal);
+            Log.error("Creature.makeGenericRoll() failed: rollVal = " + rollVal);
         }
 
         //TODO: move this to its own function and unit test
