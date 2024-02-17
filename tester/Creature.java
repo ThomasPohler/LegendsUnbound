@@ -2,6 +2,64 @@ import java.util.Arrays;
 
 public class Creature {
 
+      /********************/
+     /* STATIC VARIABLES */
+    /********************/
+
+    public static int nextCreatureID = 0;
+
+
+      /*****************/
+     /* INNER CLASSES */
+    /*****************/
+
+    private class CreatureStats {
+        private int healingReceived = 0;
+        private int damageReceived = 0;
+
+        private int attacksInstigated = 0;
+
+        public String toString() {
+            //TODO build this its own class??
+            StringBuilder result = new StringBuilder();
+
+            if (Log.isCrashing()){ //include debug information
+                result.append("Creature ID: " + getID() + "\n");
+                result.append("Left hand contains: " + getLeftHand() + "\n");
+                result.append("Left hand contains: " + getLeftHand() + "\n");
+            }
+
+            result.append("Healing received: " + healingReceived + "\n");
+            result.append("Damage received: " + damageReceived + "\n");
+
+            result.append("Attacks instigated:" + attacksInstigated + "\n");
+
+            return result.toString();
+        }
+
+        public void incrementHealingReceived(int healingReceived) {
+            if(healingReceived <= 0){
+                Log.error("Stats.CreatureStats.incrementHealingReceived(healingReceived = " + healingReceived + ")");
+            }
+            this.healingReceived += healingReceived;
+        }
+
+        public void incrementDamageReceived(int damageReceived) {
+            if(damageReceived <= 0){
+                Log.error("Stats.CreatureStats.incrementDamageReceived(damageReceived = " + damageReceived + ")");
+            }
+            this.damageReceived += damageReceived;
+        }
+
+        public void incrementAttacksInstigated() {
+            attacksInstigated++;
+        }
+    }
+
+
+
+
+
       /*********/
      /* ENUMS */
     /*********/
@@ -27,7 +85,10 @@ public class Creature {
       /*************/
      /* VARIABLES */
     /*************/
+
+    private final CreatureStats stats;
     
+    private final int ID;
     private final int level;
     private final CreatureType creatureType;
 
@@ -38,11 +99,17 @@ public class Creature {
     private int manaCurrent;
     private int manaMax;
 
+    private int deathStackCurrent;
+    private final int deathStackMax;
+
     private int actionsMain;
     private int actionsTactical;
 
     private int critMin_attack;
     private int critMin_defense;
+
+    private Object leftHand;
+    private Object rightHand;
 
 
 
@@ -53,6 +120,10 @@ public class Creature {
     /*********************/
 
     /* FINAL VARIABLES */
+
+    public int getID(){
+        return ID;
+    }
 
     public int getLevel(){
         return level;
@@ -140,6 +211,20 @@ public class Creature {
         }
     }
 
+
+    /* DEATH STACKS */
+
+    private void incrementDeathStacks(){
+        if(deathStackCurrent == -1 || deathStackCurrent >= getDeathStackMax()){
+            Log.error("Creature.incrementDeathStacks: invalid deathStacks amount = " + deathStackCurrent);
+        }
+        deathStackCurrent++;
+    }
+    public int getDeathStackMax(){
+        return deathStackMax;
+    }
+
+
     /* ACTIONS */
 
     public int getRemainingMainActions(){
@@ -161,7 +246,7 @@ public class Creature {
             case ELITE: return 2;
             case BOSS: return 4;
             case DUMMY: return 0;
-            default: return -1;
+            default: Log.error("Creature.getMaxMainActions: getCreatureType() == " + getCreatureType()); return -1;
         }
     }
 
@@ -184,7 +269,7 @@ public class Creature {
             case ELITE: return 0;
             case BOSS: return 0;
             case DUMMY: return 0;
-            default: return -1;
+            default: Log.error("Creature.getMaxMainActions: getCreatureType() == " + getCreatureType()); return -1;
         }
     }
 
@@ -211,6 +296,29 @@ public class Creature {
         critMin_defense = newCritMin_defense;
     }
 
+    
+    /* HANDS */
+
+    public Object getLeftHand(){
+        return leftHand;
+    }
+    private void setLeftHand(Object newLeftHand){
+        if (newLeftHand != null && newLeftHand.getClass().getName() != "ArmorAndShield" && newLeftHand.getClass().getName() != "Weapon"){
+            Log.error("Creature.setLeftHand: passed " + newLeftHand);
+        }
+        leftHand = newLeftHand; 
+    }
+
+    public Object getRightHand(){
+        return rightHand;
+    }
+    private void setRightHand(Object newRightHand){
+        if (newRightHand != null && newRightHand.getClass().getName() != "ArmorAndShield" && newRightHand.getClass().getName() != "Weapon"){
+            Log.error("Creature.setLeftHand: passed " + newRightHand);
+        }
+        rightHand = newRightHand;
+    }
+
 
 
 
@@ -220,9 +328,22 @@ public class Creature {
     /****************/
     
     public Creature(int level, CreatureType creatureType){
+        // Final variables
+        this.stats = new CreatureStats();
+
+        ID = nextCreatureID;
+        nextCreatureID++;
+
         this.level = level;
         this.creatureType = creatureType;
+        if (creatureType == CreatureType.PLAYER){
+            deathStackCurrent = 0;
+        } else {
+            deathStackCurrent = -1;
+        }
+        deathStackMax = 5; //TODO
 
+        // Mutable variables
         setHealthMax(4 * level);
         setHealthState(HealthState.HEALTHY);
         setManaMax(4 * level);
@@ -232,6 +353,9 @@ public class Creature {
 
         setAttackCritMinimum(20);
         setDefenseCritMinimum(20);
+
+        setLeftHand(null);
+        setRightHand(null);
     }
 
 
@@ -241,6 +365,10 @@ public class Creature {
       /***********/
      /* METHODS */
     /***********/
+
+    public String toString(){
+        return stats.toString();
+    }
 
 
     /* HEALTH-BASED METHODS */
@@ -252,6 +380,7 @@ public class Creature {
         if(getHealthState() == HealthState.DEAD){
             Log.error("Creature.heal() failed: creature is dead");
         }
+        stats.incrementHealingReceived(healingAmount);
         int potentialHealth = getHealthCurrent() + healingAmount;
         if(potentialHealth > getHealthMax()){
             potentialHealth = getHealthMax();
@@ -265,9 +394,13 @@ public class Creature {
 
     //TODO add tolerances and death stacks
     public int damage(int damageAmount){
-        if(damageAmount <= 0){
+        if (getHealthState() == HealthState.DEAD){
+            Log.error("Creature.damage: attempted to damage creature that was already dead");
+        }
+        if (damageAmount <= 0){
             Log.error("Creature.damage(damageAmount = " + damageAmount + ")");
         }
+        stats.incrementDamageReceived(damageAmount);
         setHealthCurrent(getHealthCurrent() - damageAmount);
         if(getHealthCurrent() <= 0){
             if(getCreatureType() == CreatureType.PLAYER){
@@ -283,6 +416,13 @@ public class Creature {
     /* ACTION ECONOMY */
 
     public void actionReset(){
+        if(getRemainingMainActions() < 0){
+            Log.error("Creature.actionReset: getRemainingMainActions() = " + getRemainingMainActions());
+        }
+        if(getRemainingTacticalActions() < 0){
+            Log.error("Creature.actionReset: getRemainingTacticalActions() = " + getRemainingTacticalActions());
+        }
+
         setMainActions(getMaxMainActions());
         setTacticalActions(getMaxTacticalActions());
     }
