@@ -141,54 +141,6 @@ public class Creature {
     public static int nextCreatureID = 0;
 
 
-      /*****************/
-     /* INNER CLASSES */
-    /*****************/
-
-    private class CreatureStats {
-        private int healingReceived = 0;
-        private int damageReceived = 0;
-
-        private int attacksInstigated = 0;
-
-        public String toString() {
-            //TODO build this its own class??
-            StringBuilder result = new StringBuilder();
-
-            if (Log.isCrashing()){ //include debug information
-                result.append("Creature ID: " + getID() + "\n");
-                result.append("Left hand contains: " + getLeftHand() + "\n");
-                result.append("Left hand contains: " + getLeftHand() + "\n");
-            }
-
-            result.append("Healing received: " + healingReceived + "\n");
-            result.append("Damage received: " + damageReceived + "\n");
-
-            result.append("Attacks instigated:" + attacksInstigated + "\n");
-
-            return result.toString();
-        }
-
-        public void incrementHealingReceived(int healingReceived) {
-            if(healingReceived <= 0){
-                Log.error("Stats.CreatureStats.incrementHealingReceived(healingReceived = " + healingReceived + ")");
-            }
-            this.healingReceived += healingReceived;
-        }
-
-        public void incrementDamageReceived(int damageReceived) {
-            if(damageReceived <= 0){
-                Log.error("Stats.CreatureStats.incrementDamageReceived(damageReceived = " + damageReceived + ")");
-            }
-            this.damageReceived += damageReceived;
-        }
-
-        public void incrementAttacksInstigated() {
-            attacksInstigated++;
-        }
-    }
-
-
 
 
 
