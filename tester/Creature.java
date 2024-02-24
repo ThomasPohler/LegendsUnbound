@@ -7,8 +7,7 @@ public class Creature {
       /*********/
      /* STATS */
     /*********/
-
-    public enum CreatureStats {
+    public enum CreatureStatsEnum {
         /* BASIC */
         ID,
         NAME,
@@ -74,59 +73,67 @@ public class Creature {
         HEALING_GIVEN,
     }
 
-    private final Map<CreatureStats, Object> stats;
-
-    public Map<CreatureStats, Object> getStats(){
-        return stats;
-    }
-
-    public void inc_DAMAGE_RECEIVED(int damageBeforeTolWeak, int damageAfterTolWeak, int toleranceAmount, int weaknessAmount){
-        if(stats.containsValue(CreatureStats.DAMAGE_TAKEN_BEFORE_TOLWEAK)){ //If contains any, will contain all
-
-            int total = (int) stats.get(CreatureStats.DAMAGE_TAKEN_BEFORE_TOLWEAK) + damageBeforeTolWeak;
-            stats.put(CreatureStats.DAMAGE_TAKEN_BEFORE_TOLWEAK, total);
-
-            total = (int) stats.get(CreatureStats.DAMAGE_TAKEN_AFTER_TOLWEAK) + damageAfterTolWeak;
-            stats.put(CreatureStats.DAMAGE_TAKEN_AFTER_TOLWEAK, total);
-
-            total = (int) stats.get(CreatureStats.TOLERANCES_REDUCED) + toleranceAmount;
-            stats.put(CreatureStats.TOLERANCES_REDUCED, total);
-
-            total = (int) stats.get(CreatureStats.WEAKNESSES_INCREASED) + weaknessAmount;
-            stats.put(CreatureStats.WEAKNESSES_INCREASED, weaknessAmount);
-
-        } else {
-            stats.put(CreatureStats.DAMAGE_TAKEN_BEFORE_TOLWEAK, damageBeforeTolWeak);
-            stats.put(CreatureStats.DAMAGE_TAKEN_AFTER_TOLWEAK, damageAfterTolWeak);
+    private class CreatureStats {
+        private final Map<CreatureStatsEnum, Object> stats;
+    
+        CreatureStats () {
+            stats = new HashMap<>();
         }
-    }
 
-
-    public void inc_HEALING_RECEIVED(int healing){
-        if(stats.containsValue(CreatureStats.HEALING_RECEIVED)){
-            int total = (int) stats.get(CreatureStats.HEALING_RECEIVED) + healing;
-            stats.put(CreatureStats.HEALING_RECEIVED, total);
-        } else {
-            stats.put(CreatureStats.HEALING_RECEIVED, healing);
+        public Map<CreatureStatsEnum, Object> getStats(){
+            return stats;
         }
-    }
-
-
-    public void inc_DAMAGE_DEALT(int damage){
-        if(stats.containsValue(CreatureStats.DAMAGE_DEALT)){
-            int total = (int) stats.get(CreatureStats.DAMAGE_DEALT) + damage;
-            stats.put(CreatureStats.DAMAGE_DEALT, total);
-        } else {
-            stats.put(CreatureStats.DAMAGE_DEALT, damage);
+    
+        public void inc_DAMAGE_RECEIVED(int damageBeforeTolWeak, int damageAfterTolWeak, int toleranceAmount, int weaknessAmount){
+            if(stats.containsValue(CreatureStatsEnum.DAMAGE_TAKEN_BEFORE_TOLWEAK)){ //If contains any, will contain all
+    
+                int total = (int) stats.get(CreatureStatsEnum.DAMAGE_TAKEN_BEFORE_TOLWEAK) + damageBeforeTolWeak;
+                stats.put(CreatureStatsEnum.DAMAGE_TAKEN_BEFORE_TOLWEAK, total);
+    
+                total = (int) stats.get(CreatureStatsEnum.DAMAGE_TAKEN_AFTER_TOLWEAK) + damageAfterTolWeak;
+                stats.put(CreatureStatsEnum.DAMAGE_TAKEN_AFTER_TOLWEAK, total);
+    
+                total = (int) stats.get(CreatureStatsEnum.TOLERANCES_REDUCED) + toleranceAmount;
+                stats.put(CreatureStatsEnum.TOLERANCES_REDUCED, total);
+    
+                total = (int) stats.get(CreatureStatsEnum.WEAKNESSES_INCREASED) + weaknessAmount;
+                stats.put(CreatureStatsEnum.WEAKNESSES_INCREASED, weaknessAmount);
+    
+            } else {
+                stats.put(CreatureStatsEnum.DAMAGE_TAKEN_BEFORE_TOLWEAK, damageBeforeTolWeak);
+                stats.put(CreatureStatsEnum.DAMAGE_TAKEN_AFTER_TOLWEAK, damageAfterTolWeak);
+                stats.put(CreatureStatsEnum.TOLERANCES_REDUCED, toleranceAmount);
+                stats.put(CreatureStatsEnum.WEAKNESSES_INCREASED, weaknessAmount);
+            }
         }
-    }
-
-    public void inc_HEALING_GIVEN(int healing){
-        if(stats.containsValue(CreatureStats.HEALING_GIVEN)){
-            int total = (int) stats.get(CreatureStats.HEALING_GIVEN) + healing;
-            stats.put(CreatureStats.HEALING_GIVEN, total);
-        } else {
-            stats.put(CreatureStats.HEALING_GIVEN, healing);
+    
+    
+        public void inc_HEALING_RECEIVED(int healing){
+            if(stats.containsValue(CreatureStatsEnum.HEALING_RECEIVED)){
+                int total = (int) stats.get(CreatureStatsEnum.HEALING_RECEIVED) + healing;
+                stats.put(CreatureStatsEnum.HEALING_RECEIVED, total);
+            } else {
+                stats.put(CreatureStatsEnum.HEALING_RECEIVED, healing);
+            }
+        }
+    
+    
+        public void inc_DAMAGE_DEALT(int damage){
+            if(stats.containsValue(CreatureStatsEnum.DAMAGE_DEALT)){
+                int total = (int) stats.get(CreatureStatsEnum.DAMAGE_DEALT) + damage;
+                stats.put(CreatureStatsEnum.DAMAGE_DEALT, total);
+            } else {
+                stats.put(CreatureStatsEnum.DAMAGE_DEALT, damage);
+            }
+        }
+    
+        public void inc_HEALING_GIVEN(int healing){
+            if(stats.containsValue(CreatureStatsEnum.HEALING_GIVEN)){
+                int total = (int) stats.get(CreatureStatsEnum.HEALING_GIVEN) + healing;
+                stats.put(CreatureStatsEnum.HEALING_GIVEN, total);
+            } else { //TODO put this stuff into the constructor
+                stats.put(CreatureStatsEnum.HEALING_GIVEN, healing);
+            }
         }
     }
 
@@ -170,7 +177,7 @@ public class Creature {
      /* VARIABLES */
     /*************/
 
-    private final CreatureStats stats;
+    private final CreatureStats creatureStats;
     
     private final int ID;
     private final int level;
@@ -185,6 +192,7 @@ public class Creature {
 
     private int deathStackCurrent;
     private final int deathStackMax;
+    private boolean gainedDeathStackThisActionReset;
 
     private int actionsMain;
     private int actionsTactical;
@@ -299,13 +307,23 @@ public class Creature {
     /* DEATH STACKS */
 
     private void incrementDeathStacks(){
-        if(deathStackCurrent == -1 || deathStackCurrent >= getDeathStackMax()){
+        if(deathStackCurrent == -1 || deathStackCurrent >= getDeathStackMax() || getCreatureType() != CreatureType.PLAYER || getHealthState() != HealthState.DYING){
             Log.error("Creature.incrementDeathStacks: invalid deathStacks amount = " + deathStackCurrent);
         }
         deathStackCurrent++;
+        if(deathStackCurrent == getDeathStackMax()){
+            setHealthState(HealthState.DEAD);
+        }
     }
     public int getDeathStackMax(){
         return deathStackMax;
+    }
+
+    public void setGainedDeathStackThisActionReset(boolean input){
+        gainedDeathStackThisActionReset = input;
+    }
+    public boolean gainedDeathStackThisActionReset(){
+        return gainedDeathStackThisActionReset;
     }
 
 
@@ -322,6 +340,12 @@ public class Creature {
             Log.error("Creature.setMainActions(newActionsMain = " + newActionsMain + "), maxMainActions = " + getMaxMainActions());
         }
         actionsMain = newActionsMain;
+    }
+    private void spendMainActions(int amountToSpend){
+        if(amountToSpend <= 0){
+            Log.error("Creature.spendMainActions(amountToSpend = " + amountToSpend + ")");
+        }
+        setMainActions(getRemainingMainActions() - amountToSpend);
     }
     public int getMaxMainActions(){
         switch (getCreatureType()) {
@@ -345,6 +369,12 @@ public class Creature {
             Log.error("Creature.setTacticalActions(newActionsTactical = " + newActionsTactical + "), maxTacticalActions = " + getMaxTacticalActions());
         }
         actionsTactical = newActionsTactical;
+    }
+    private void spendTacticalActions(int amountToSpend){
+        if(amountToSpend <= 0){
+            Log.error("Creature.spendTacticalActions(amountToSpend = " + amountToSpend + ")");
+        }
+        setTacticalActions(getRemainingTacticalActions() - amountToSpend);
     }
     public int getMaxTacticalActions(){
         switch (getCreatureType()) {
@@ -413,12 +443,13 @@ public class Creature {
     
     public Creature(int level, CreatureType creatureType){
         // Final variables
+        creatureStats = new CreatureStats();
+
         ID = nextCreatureID;
         nextCreatureID++;
 
         this.level = level;
         this.creatureType = creatureType;
-        this.stats = new HashMap<>();
         if (creatureType == CreatureType.PLAYER){
             deathStackCurrent = 0;
         } else {
@@ -429,6 +460,7 @@ public class Creature {
         // Mutable variables
         setHealthMax(4 * level);
         setHealthState(HealthState.HEALTHY);
+        setGainedDeathStackThisActionReset(false);
         setManaMax(4 * level);
 
         setMainActions(getMaxMainActions());
@@ -449,13 +481,14 @@ public class Creature {
      /* METHODS */
     /***********/
 
-    public String toString(){
-        return stats.toString();
+    public Map<CreatureStatsEnum, Object> getStats(){
+        return creatureStats.getStats();
     }
 
 
-    /* HEALTH-BASED METHODS */
+    /* HEALTH */
 
+    // Returns the actual amount of healing applied based on the input healing amount
     public int heal(int healingAmount){
         if(healingAmount <= 0){
             Log.error("Creature.heal(healingAmount = " + healingAmount + ")");
@@ -463,19 +496,21 @@ public class Creature {
         if(getHealthState() == HealthState.DEAD){
             Log.error("Creature.heal() failed: creature is dead");
         }
-        stats.incrementHealingReceived(healingAmount);
+        creatureStats.inc_HEALING_RECEIVED(healingAmount);
         int potentialHealth = getHealthCurrent() + healingAmount;
         if(potentialHealth > getHealthMax()){
+            healingAmount -= potentialHealth - getHealthMax();
             potentialHealth = getHealthMax();
         }
         if(potentialHealth > 0 && getHealthState() == HealthState.DYING){
             setHealthState(HealthState.HEALTHY);
         }
         setHealthCurrent(potentialHealth);
-        return getHealthCurrent();
+        return healingAmount;
     }
 
     //TODO add tolerances and death stacks
+    // Returns the actual amount of damage applied based on the input damage amount
     public int damage(int damageAmount){
         if (getHealthState() == HealthState.DEAD){
             Log.error("Creature.damage: attempted to damage creature that was already dead");
@@ -483,20 +518,29 @@ public class Creature {
         if (damageAmount <= 0){
             Log.error("Creature.damage(damageAmount = " + damageAmount + ")");
         }
-        stats.incrementDamageReceived(damageAmount);
-        setHealthCurrent(getHealthCurrent() - damageAmount);
-        if(getHealthCurrent() <= 0){
-            if(getCreatureType() == CreatureType.PLAYER){
-                setHealthState(HealthState.DYING);
-            } else {
-                setHealthState(HealthState.DEAD);
+        //TODO creatureStats.inc_DAMAGE_RECEIVED(damageAmount);
+        if(getHealthState() != HealthState.DYING){
+
+            setHealthCurrent(getHealthCurrent() - damageAmount);
+            if(getHealthCurrent() <= 0){
+                if(getCreatureType() == CreatureType.PLAYER){
+                    setHealthState(HealthState.DYING);
+                } else {
+                    setHealthState(HealthState.DEAD);
+                }
+                setHealthCurrent(0);
             }
+
+        } else if(!gainedDeathStackThisActionReset()){
+            incrementDeathStacks();
+            setGainedDeathStackThisActionReset(true);
         }
-        return getHealthCurrent();
+        
+        return damageAmount; //TODO return damage after tol/weak applied
     }
 
 
-    /* ACTION ECONOMY */
+    /* ACTIONS */
 
     public void actionReset(){
         if(getRemainingMainActions() < 0){
@@ -506,15 +550,47 @@ public class Creature {
             Log.error("Creature.actionReset: getRemainingTacticalActions() = " + getRemainingTacticalActions());
         }
 
+        setGainedDeathStackThisActionReset(false);
         setMainActions(getMaxMainActions());
         setTacticalActions(getMaxTacticalActions());
     }
 
+    public boolean instigateAttack(Creature target){
+        //TODO split this into its own function for dual-wielding
+        int attackVal = -1;
+        int defenseVal = -1;
+        int breakVal = 0;
 
-    /* PERFORM ACTIONS */
+        while(breakVal < 100){
+            attackVal = makeAttackRoll();
+            defenseVal = target.makeDefenseRoll();
+            if(attackVal == defenseVal){
+                //TODO reroll stats
+                breakVal++;
+            } else {
+                break;
+            }
+        }
+        if(breakVal >= 100){
+            Log.error("Creature.instigateAttack: 100 successive rerolls recorded");
+        }
+
+        if(attackVal > defenseVal){
+            //TODO brutal damage
+            target.damage(2);
+            creatureStats.inc_DAMAGE_DEALT(2);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    /* ROLLS */
 
     public int makeAttackRoll(){
         //TODO: give proper arguments
+        //TODO errorchecking
         return makeGenericRoll(0, 3, getAttackCritMinimum());
     }
 

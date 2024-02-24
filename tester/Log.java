@@ -8,7 +8,7 @@ public class Log {
 
     /* VARIABLES */
 
-    public static Simulation currentSimulation;
+    private static Simulation currentSimulation;
     private static boolean isProgramCrashing;
 
 
