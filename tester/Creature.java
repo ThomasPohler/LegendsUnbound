@@ -1,6 +1,138 @@
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Creature {
+
+      /*********/
+     /* STATS */
+    /*********/
+
+    public enum CreatureStats {
+        /* BASIC */
+        ID,
+        NAME,
+        LEVEL,
+
+        ROUNDS_SURVIVED,
+        POSITION_IN_ROUND,
+        TURNS_STARTED,
+        TURNS_ENDED,
+
+        /* EQUIPMENT */
+        ARMOR_WORN,
+        LEFT_HAND_CONTAINS,
+        RIGHT_HAND_CONTAINS,
+
+        /* ROLLS */
+        TOTAL_ROLLS_MADE,
+
+        ROLLS_MADE_WITH_ADV,
+        ROLLS_MADE_WITH_DISADV,
+
+        COMPETING_ROLLS_MADE,
+        REROLLS_MADE,
+        REROLL_RATE,
+        ATTACKS_REROLLED,
+        ATTACK_REROLL_RATE,
+        DEFENSES_REROLLED,
+        DEFENSE_REROLL_RATE,
+        LONGEST_REROLL_CHAIN,
+
+        /* HEALTH */
+        CURRENT_HEALTH,
+        MAX_HEALTH,
+
+        DAMAGE_TAKEN_BEFORE_TOLWEAK,
+        DAMAGE_TAKEN_AFTER_TOLWEAK,
+        TOLERANCES_REDUCED,
+        WEAKNESSES_INCREASED,
+
+        HEALING_RECEIVED,
+
+        /* MANA */
+        MANA_SPENT,
+
+        /* ACTIONS */
+        ATTACK_SUCCESS_RATE,
+        ATTACKS_MADE,
+        ATTACKS_MADE_PERCENT_MAIN,
+        ATTACKS_MADE_PERCENT_TACT,
+        ATTACKS_HIT,
+        ATTACKS_HIT_PERCENT_MAIN,
+        ATTACKS_HIT_PERCENT_TACT,
+        ATTACKS_MISS,
+        ATTACKS_MISS_PERCENT_MAIN,
+        ATTACKS_MISS_PERCENT_TACT,
+
+        DEFENSE_SUCCESS_RATE,
+        DEFENSES_MADE,
+        DEFENSES_SUCCEEDED,
+        DEFENSES_FAILED,
+
+        DAMAGE_DEALT,
+        HEALING_GIVEN,
+    }
+
+    private final Map<CreatureStats, Object> stats;
+
+    public Map<CreatureStats, Object> getStats(){
+        return stats;
+    }
+
+    public void inc_DAMAGE_RECEIVED(int damageBeforeTolWeak, int damageAfterTolWeak, int toleranceAmount, int weaknessAmount){
+        if(stats.containsValue(CreatureStats.DAMAGE_TAKEN_BEFORE_TOLWEAK)){ //If contains any, will contain all
+
+            int total = (int) stats.get(CreatureStats.DAMAGE_TAKEN_BEFORE_TOLWEAK) + damageBeforeTolWeak;
+            stats.put(CreatureStats.DAMAGE_TAKEN_BEFORE_TOLWEAK, total);
+
+            total = (int) stats.get(CreatureStats.DAMAGE_TAKEN_AFTER_TOLWEAK) + damageAfterTolWeak;
+            stats.put(CreatureStats.DAMAGE_TAKEN_AFTER_TOLWEAK, total);
+
+            total = (int) stats.get(CreatureStats.TOLERANCES_REDUCED) + toleranceAmount;
+            stats.put(CreatureStats.TOLERANCES_REDUCED, total);
+
+            total = (int) stats.get(CreatureStats.WEAKNESSES_INCREASED) + weaknessAmount;
+            stats.put(CreatureStats.WEAKNESSES_INCREASED, weaknessAmount);
+
+        } else {
+            stats.put(CreatureStats.DAMAGE_TAKEN_BEFORE_TOLWEAK, damageBeforeTolWeak);
+            stats.put(CreatureStats.DAMAGE_TAKEN_AFTER_TOLWEAK, damageAfterTolWeak);
+        }
+    }
+
+
+    public void inc_HEALING_RECEIVED(int healing){
+        if(stats.containsValue(CreatureStats.HEALING_RECEIVED)){
+            int total = (int) stats.get(CreatureStats.HEALING_RECEIVED) + healing;
+            stats.put(CreatureStats.HEALING_RECEIVED, total);
+        } else {
+            stats.put(CreatureStats.HEALING_RECEIVED, healing);
+        }
+    }
+
+
+    public void inc_DAMAGE_DEALT(int damage){
+        if(stats.containsValue(CreatureStats.DAMAGE_DEALT)){
+            int total = (int) stats.get(CreatureStats.DAMAGE_DEALT) + damage;
+            stats.put(CreatureStats.DAMAGE_DEALT, total);
+        } else {
+            stats.put(CreatureStats.DAMAGE_DEALT, damage);
+        }
+    }
+
+    public void inc_HEALING_GIVEN(int healing){
+        if(stats.containsValue(CreatureStats.HEALING_GIVEN)){
+            int total = (int) stats.get(CreatureStats.HEALING_GIVEN) + healing;
+            stats.put(CreatureStats.HEALING_GIVEN, total);
+        } else {
+            stats.put(CreatureStats.HEALING_GIVEN, healing);
+        }
+    }
+
+
+
+
 
       /*********/
      /* ENUMS */
@@ -222,6 +354,7 @@ public class Creature {
     public Creature(int level, CreatureType creatureType){
         this.level = level;
         this.creatureType = creatureType;
+        this.stats = new HashMap<>();
 
         setHealthMax(4 * level);
         setHealthState(HealthState.HEALTHY);
