@@ -6,16 +6,42 @@ import java.time.format.DateTimeFormatter;
 
 public class Log {
 
-    public static final Stats stats = new Stats();
+    /* VARIABLES */
 
-    private static void write(String fileName, String input, boolean dumpStats){
+    public static Simulation currentSimulation;
+    private static boolean isProgramCrashing;
+
+
+    /* GETTERS / SETTERS */
+
+    public static Simulation getcurrentSimulation(){
+        return currentSimulation;
+    }
+    public static void setCurrentSimulation(Simulation newSimulation){
+        currentSimulation = newSimulation;
+    }
+
+    public static boolean isCrashing(){
+        return isProgramCrashing;
+    }
+    public static void setIsCrashing(boolean newIsCrashing){
+        isProgramCrashing = newIsCrashing;
+    }
+
+
+    /* METHODS */
+
+    private static void write(String fileName, String input, boolean dumpSimulationInfo){
         String filePath = fileName + "_" + LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMMdd")) + ".txt";
 
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
             writer.write(input);
-            if(dumpStats){
-                writer.write(stats.toString());
+            if(dumpSimulationInfo && currentSimulation != null){
+                writer.write("\n\n-- STATS --\n");
+                writer.write(currentSimulation.toString());
+            } else if(currentSimulation == null){
+                writer.write("\n\nCannot dump simulation info, simulation info is null");
             }
             writer.close();
         } catch (IOException e) {
@@ -30,6 +56,7 @@ public class Log {
 
     /* Use this to instigate a fatal crash and generate an error message */
     public static void error(String input) {
+        setIsCrashing(true);
         write("error", input, true);
         throw new IllegalStateException(input);
     }

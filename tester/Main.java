@@ -5,5 +5,7 @@ public class Main {
 
         System.out.println(char1.makeAttackRoll());
         System.out.println(char2.makeDefenseRoll());
+
+        Log.error("test");
     }
 }
