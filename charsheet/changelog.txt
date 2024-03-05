@@ -1,0 +1,2 @@
+Renamed the "gear" tab to the "equipment" tab.
+

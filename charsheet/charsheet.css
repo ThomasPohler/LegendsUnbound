@@ -1,0 +1,647 @@
+  /**************************/
+ /* DEFINE COLOR VARIABLES */
+/**************************/
+
+body {
+    /* These variables are not changed in dark mode: */
+    --color-accent: #0075FF;
+
+    /* These variables are changed in dark mode: */
+    --color-background: #F2F2F2;
+    --color-border: #3F3F3F;
+    --color-container: #E5E5E5;
+    --color-highlight: #B2B2B2;
+    --color-text: black;
+}
+body.sheet-darkmode {
+    --color-background: #333333;
+    --color-border: black;
+    --color-container: #1F1F1F;
+    --color-highlight: #4C4C4C;
+    --color-text: #E6E6E6;
+}
+
+
+
+
+
+  /********/
+ /* MISC */
+/********/
+
+.hidden {
+    display: none;
+}
+
+.invis {
+    pointer-events: none;
+    cursor: default;
+}
+
+
+
+.container-style {
+	border: 2px solid var(--color-border);
+	background-color: var(--color-container);
+	padding: 3px;
+	border-radius: 5px;
+	margin-bottom: 6px;
+    position: relative;
+}
+
+
+
+.hr {
+    background-color: var(--color-highlight);
+    height: 1px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+.vr {
+    background-color: #666666;
+    height: 100%;
+    width: 1px;
+    margin: 0px auto;
+}
+
+
+
+button {
+    width: 80px;
+    height: 20px;
+	background-color: #CCCCCC;
+	border: 1px var(--color-border) solid;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	border-radius: 6px;
+    transition: all 0.3s, background-color 0.3s, border-color 0s;
+    overflow: hidden;
+}
+button:hover {
+    transition: background-color 0.3s; /* TPTODO make the light and dark mode colors equal to you can have the background color transition */
+    background-color: #D8D8D8;
+}
+button:active {
+    transition: background-color 0.3s;
+    background-color: #D8D8D8;
+}
+
+
+
+button.checkbox {
+    background-color: white !important;
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 3px;
+    border: 1px var(--color-border) solid;
+    padding: 0px;
+    display: inline;
+}
+button.checkbox.checked {
+    background-color: var(--color-accent) !important;
+}
+
+
+
+span {
+    color: var(--color-text);
+}
+button span {
+    color: black;
+}
+
+
+
+/* Controls the background color */
+#dialog-window {
+    background-color: var(--color-background) !important;
+}
+.tab-pane {
+    background-color: var(--color-background);
+}
+
+
+
+/* This controls the color of the tabs above the character sheet */
+.nav.nav-tabs {
+    background-color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left: 1px solid #DDDDDD;
+    border-right: 1px solid #DDDDDD;
+}
+body.sheet-darkmode .nav.nav-tabs {
+    background-color: var(--color-container);
+    border: 1px solid #5C5C5C;
+    border-top: 1px solid black;
+}
+.nav.nav-tabs li.active > a {
+    background-color: var(--color-background);
+}
+
+
+
+#page_holder{
+    margin-bottom: 10px;
+}
+
+
+
+/* SIDEBARS */
+
+.sidebar-normal,
+.sidebar-small {
+    width: 149px;
+    overflow: hidden;
+    transition: all 0.3s, background-color 0s, border-color 0s;
+}
+
+
+
+.sidebar-normal > h4 {
+    display: block;
+    margin: 0px;
+    margin-bottom: 3px;
+    text-align: center;
+}
+
+
+
+.sidebar-small {
+    height: 20px;
+}
+.sidebar-small > span {
+    position: relative;
+    top: 1px;
+}
+.sidebar-small > input {
+    float: right;
+    position: relative;
+    bottom: 4px;
+    left: 3px;
+}
+.sidebar-small button.checkbox {
+    margin-top: 3px;
+}
+.sidebar-small > button.checkbox:first-child {
+    margin-left: 6px;
+}
+.sidebar-small button.checkbox.top-right {
+    float: right;
+    right: 3px;
+}
+
+
+
+
+
+  /**************/
+ /* PAGE: MAIN */
+/**************/
+
+/* MAIN DIV */
+
+.sheet-main #main_div {
+    position: absolute;
+    left: 195px;
+    width: 800px;
+    transition: 0.3s;
+}
+.sheet-main #left_sidebar.collapsed ~ #main_div {
+    left: 94px;
+}
+
+
+
+.sheet-main #title_holder {
+    width: 800px;
+    text-align: center;
+}
+.sheet-main #title {
+    font-size: 26px;
+    line-height: 25px;
+    text-decoration-line: overline underline;
+    margin-top: 5px;
+    color: var(--color-text);
+}
+
+
+
+.sheet-main #character_box {
+    display: grid;
+    grid-template-columns: 188px 1fr 188px 1fr 188px 1fr 188px;
+    grid-template-rows: repeat(2, auto);
+    padding: 3px 6px;
+    position: relative;
+    transition: all 0.3s, opacity 0s, background-color 0s, border-color 0s;
+    height: 93px;
+    overflow: hidden;
+    margin-top: 6px;
+}
+.sheet-main #character_box.invis { /* to get a smoother transition I need to put the grid in its own div */
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    height: 0px;
+    transition: all 0.3s, opacity 0.3s, background-color 0s, border-color 0s;
+    opacity: 0%;
+    margin-top: 2px;
+}
+.sheet-main #character_box input {
+    width: 100%;
+}
+.sheet-main #character_box span {
+    margin: 0px auto;
+    width: 1px;
+    display: flex;
+    justify-content: center;
+}
+
+.sheet-main #character_box_collapsed {
+    position: absolute;
+    padding-left: 0px;
+    width: 23px;
+    transition: all 0.25s, opacity 0s, background-color 0s, border-color 0s;
+}
+.sheet-main #character_box_collapsed.checked {
+    width: 178px;
+}
+.sheet-main #character_box_collapsed input {
+    position: relative;
+    left: 6px;
+    width: 155px;
+}
+
+
+
+.sheet-main #loadout_collapsed {
+    position: absolute;
+    padding-left: 0px;
+    width: 23px;
+    transition: all 0.25s, opacity 0s, background-color 0s, border-color 0s;
+    left: 769px;
+}
+
+
+
+/* TRAITS */
+
+input.disadvantaged-trait {
+    background-color: #F2B8B8 !important;
+}
+input.advantaged-trait {
+    background-color: #ACE5AC !important;
+}
+body.sheet-darkmode input.disadvantaged-trait {
+    background-color: #BF0000 !important;
+}
+body.sheet-darkmode input.advantaged-trait {
+    background-color: green !important;
+}
+
+
+
+/* LEFT SIDEBAR */
+
+.sheet-main #left_sidebar {
+    position: absolute;
+}
+
+.sheet-main #left_sidebar > .sidebar-normal {
+    padding-bottom: 5px;
+}
+
+.sheet-main #left_sidebar.collapsed > .sidebar-small, .sheet-main #left_sidebar.collapsed > .sidebar-normal {
+    width: 46px;
+}
+
+.sheet-main #left_sidebar > div > h4 {
+    white-space: nowrap;
+}
+.sheet-main #left_sidebar > .sidebar-small > h4 {
+    position: absolute;
+}
+.sheet-main #left_sidebar.collapsed > .sidebar-small > h4.collapsed {
+    display: inline;
+}
+
+.sheet-main #left_sidebar .left-sidebar-input-holder {
+    transition: all 0.3s;
+    display: inline;
+    position: relative;
+    width: 3.5em;
+    margin-right: 2px;
+}
+.sheet-main #left_sidebar.collapsed .left-sidebar-input-holder {
+    width: 0em;
+    margin-right: 0px;
+} 
+.sheet-main #left_sidebar .left-sidebar-input-holder > input {
+    transition: all 0.3s, background-color 0s, border-color 0s, color 0s;
+    width: 3.5em;
+    position: absolute;
+}
+.sheet-main #left_sidebar.collapsed .left-sidebar-input-holder > input {
+    width: 0em;
+    pointer-events: none;
+    opacity: 0%;
+}
+
+.sheet-main #left_sidebar .skill-container {
+    transition: all 0.3s, background-color 0s, border-color 0s;
+}
+.sheet-main #left_sidebar.collapsed .skill-container {
+    padding-left: 4px;
+}
+.sheet-main #left_sidebar .skill-container > span {
+    display: block;
+}
+
+.sheet-main #left_sidebar.collapsed button.advantaged-trait {
+    background-color: #66CC66;
+}
+.sheet-main #left_sidebar.collapsed button.disadvantaged-trait {
+    background-color: #E59595;
+}
+
+.sheet-main #left_sidebar > * .collapsed, .sheet-main #left_sidebar.collapsed > * .expanded {
+    display: none;
+}
+.sheet-main #left_sidebar.collapsed > * .collapsed {
+    display: block;
+}
+
+
+
+/* RIGHT SIDEBAR */
+
+.sheet-main #right_sidebar {
+    position: absolute;
+    margin-left: 971px;
+    transition: 0.3s;
+}
+.sheet-main #left_sidebar.collapsed ~ #right_sidebar {
+    margin-left: 870px;
+}
+
+
+
+/* ADVAN AND MOD LOADOUTS */
+
+.advmod-loadout-0,
+.advmod-loadout-1,
+.advmod-loadout-2,
+.advmod-loadout-3,
+.advmod-loadout-4 {
+    display: none;
+}
+.advmodloadout-tabstoggle[value="0"] ~ div > .advmod-loadout-0,
+.advmodloadout-tabstoggle[value="1"] ~ div > .advmod-loadout-1,
+.advmodloadout-tabstoggle[value="2"] ~ div > .advmod-loadout-2,
+.advmodloadout-tabstoggle[value="3"] ~ div > .advmod-loadout-3,
+.advmodloadout-tabstoggle[value="4"] ~ div > .advmod-loadout-4 {
+    display: block;
+}
+
+div.trait-line-holder {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 28px;
+    padding-left: 4px; /* TPTODO slightly not correct */
+}
+div.trait-line-holder > button {
+    margin-top: 1px;
+}
+.sheet-main #left_sidebar.collapsed .trait-line-holder {
+    padding-left: 1px;
+}
+.sheet-main #left_sidebar.collapsed .trait-line-holder > button {
+    width: 30px;
+}
+
+
+
+
+
+
+/******************/
+/* Element colors */
+/******************/
+
+textarea,
+input {
+    background-color: white;
+}
+
+body.sheet-darkmode textarea,
+body.sheet-darkmode input {
+    background-color: #E6E6E6;
+    border: 1px solid #B3B3B3;;
+}
+
+body.sheet-darkmode h1 { color: #E6E6E6; }
+body.sheet-darkmode h4 { color: #E6E6E6; }
+body.sheet-darkmode h3 { color: #E6E6E6; }
+body.sheet-darkmode p  { color: #E6E6E6; }
+
+body.sheet-darkmode button {
+    background-color: #B3B3B3;
+}
+
+body.sheet-darkmode li{
+    color: #E6E6E6;
+}
+
+body.sheet-darkmode input[readonly='true']{
+	background-color:#333333;
+	color: #E6E6E6;;
+}
+
+
+
+
+/*****************/
+/* Page elements */
+/*****************/
+
+h4    {display:inline;}
+li    {margin-bottom:5px;}
+
+table {
+    border: 2px solid black;
+    background-color:#E5E5E5;
+}
+
+textarea {
+    resize: vertical;
+}
+
+input[type='number']{
+    width: 40px;
+}
+
+input[type='text']{
+    width: 160px;
+}
+
+input[readonly='true']{
+	background-color: #EDEDED;
+	text-align: center;
+    width: 30px;
+	border: 1px #3F3F3F solid;
+	border-radius: 2px;
+}
+
+select {
+    width: 120px;
+}
+
+div.sheet-template-container {
+    display:none;
+}
+
+.background-type {
+    position:absolute;
+    width:1300px;
+    height:2500px;
+    left:0;
+    top:50px;
+    z-index:-1;
+}
+
+#advan_and_mod_box {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    grid-template-rows: repeat(4, auto);
+    height: 160px;
+    transition: all 0.3s, opacity 0s, background-color 0s, border-color 0s;
+}
+
+#advan_and_mod_box > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid black;
+}
+
+#advan_and_mod_box.invis {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    height: 0px;
+    transition: all 0.3s, opacity 0.3s, background-color 0s, border-color 0s;
+    opacity: 0%;
+    margin-top: -4px;
+}
+
+.tolerance-box {
+    display: grid;
+    grid-template-columns: repeat(10, auto);
+}
+
+.tolerance-box > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid black;
+}
+
+.tolerance-box > div > input {
+    margin-top: 3px;
+}
+
+#action_box {
+    display: grid;
+    grid-template-columns: repeat(10, auto);
+    grid-template-rows: repeat(1, auto);
+}
+
+#action_box > div {
+    border-right: 1px solid black;
+    text-align-last: center;
+}
+
+#combat_box {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    grid-template-rows: repeat(1, auto);
+}
+
+#combat_box > div {
+    border-right: 1px solid black;
+    align-items: center;
+    display: inherit;
+    text-align-last: center;
+    justify-content: center;
+}
+
+#attribute_box {
+    display: grid;
+    grid-template-columns: repeat(11, auto);
+    grid-template-rows: repeat(1, auto);
+}
+
+#attribute_box_lu {
+    display: grid;
+    grid-template-columns: repeat(8, auto);
+    grid-template-rows: repeat(1, auto);
+}
+
+#attribute_box > div {
+   height: 80px; 
+}
+
+#attribute_box > div, #attribute_box_lu > div {
+    border-right: 1px solid black;
+    align-items: center;
+    display: inherit;
+    text-align-last: center;
+    justify-content: center;
+}
+
+#attribute_box > div > input, #attribute_box_lu > div > input {
+    margin: 0px auto;
+}
+
+
+.repcontrol_add {
+    width: 65px;
+}
+
+.repcontrol_edit {
+    width: 65px;
+}
+
+body.sheet-darkmode #attribute_box > div,
+body.sheet-darkmode #combat_box > div,
+body.sheet-darkmode .tolerance_box > div,
+body.sheet-darkmode #action_box > div,
+body.sheet-darkmode #advan_and_mod_box > div {
+    border-right: 1px solid #3F3F3F;
+}
+
+.max-display {
+    font-size: 10px;
+    height: 10px;
+    position: relative;
+    bottom: 3.5px;
+    color: #999999;
+}
+
+body.sheet-darkmode .max-display {
+    color: #999999;
+}
+
+#attack_header {
+    text-align: center;
+}
+
+.all-traits {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    grid-template-rows: repeat(1, auto);
+    min-width:1400px;
+}
+.all-traits > div {
+    min-width:200px;
+}
