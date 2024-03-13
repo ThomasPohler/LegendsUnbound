@@ -50,6 +50,8 @@ body.sheet-darkmode {
 	border-radius: 5px;
 	margin-bottom: 6px;
     position: relative;
+    width: fit-content;
+    overflow: hidden;
 }
 
 
@@ -87,6 +89,11 @@ button:active {
     background-color: #C1C1C1;
 }
 
+button.small {
+    width: 12px;
+    height: 20px;
+}
+
 button input {
     width: 20px !important;
     float: left;
@@ -115,6 +122,12 @@ button.checkbox {
 }
 button.checkbox.checked {
     background-color: var(--color-accent) !important;
+}
+
+
+
+input[type=number] {
+    width: 50px;
 }
 
 
@@ -157,21 +170,33 @@ body.sheet-darkmode .nav.nav-tabs {
 
 
 /* TPTODO TRAITS */
-#button_box {
+.button-box {
     display: grid;
     grid-template-columns: 137px 137px 137px;
     row-gap: 3px;
     width: 408px;
+    margin-top: -25px;
+}
+#undocked_button_box {
     position: fixed;
+    top: 47px;
     right: 30px;
     z-index: 255;
 }
-#button_box button {
+.button-box button {
     width: 120px;
 }
-#button_box > span {
+.button-box > span {
     margin: 0px auto;
     color: var(--color-border);
+}
+.button-box > input {
+    width: 100%;
+}
+
+.button-box-docker {
+    position: relative;
+    z-index: 10;
 }
 
 
@@ -179,7 +204,117 @@ body.sheet-darkmode .nav.nav-tabs {
 
 
 /*TPTODO comment here*/
+
+.main-width {
+    width: 475px;
+}
+textarea.main-width {
+    width: 465px;
+    resize: vertical;
+}
+
+
+
+#character_box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+}
+
+#character_box input {
+    width: 100%;
+}
+
+.character-box-span {
+    display: block;
+    text-align: center;
+}
+
+
+
 #attribute_box {
     display: grid;
-    grid-template-columns: 60px 60px 60px 60px 60px;
+    grid-template-columns: repeat(5, 60px);
+}
+
+
+
+#tolerance_box {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    column-gap: 3px;
+}
+#tolerance_box span {
+    margin: 0px auto;
+}
+#tolerance_box input {
+    min-width: 35px;
+    width: 100%;
+}
+
+
+
+/* TPTODO remove all the unnecessary collapse words */
+.repcontainer[data-groupname="repeating_abilities"] input.ability-layout[value="1"] + .ability-content .collapse-uses,
+.repcontainer[data-groupname="repeating_abilities"] input.ability-layout[value="3"] + .ability-content .collapse-uses,
+.repcontainer[data-groupname="repeating_abilities"] input.ability-layout[value="5"] + .ability-content .collapse-uses {
+    display: none;
+}
+
+.repcontainer[data-groupname="repeating_abilities"] input.ability-layout[value="1"] + .ability-content .ability-attack,
+.repcontainer[data-groupname="repeating_abilities"] input.ability-layout[value="2"] + .ability-content .ability-attack {
+    display: none;
+}
+
+.repcontainer[data-groupname="repeating_abilities"] input.ability-layout[value="5"] + .ability-content .non-melee,
+.repcontainer[data-groupname="repeating_abilities"] input.ability-layout[value="6"] + .ability-content .non-melee {
+    display: none;
+}
+.repcontainer[data-groupname="repeating_abilities"] input.ability-layout[value="5"] + .ability-content button.melee,
+.repcontainer[data-groupname="repeating_abilities"] input.ability-layout[value="6"] + .ability-content button.melee {
+    width: 103px;
+}
+.repcontainer[data-groupname="repeating_abilities"] input.ability-layout[value="5"] + .ability-content input.melee,
+.repcontainer[data-groupname="repeating_abilities"] input.ability-layout[value="6"] + .ability-content input.melee {
+    width: 100%;
+}
+
+
+.repcontainer[data-groupname="repeating_abilities"] .repitem:first-child .hr {
+    display: none;
+}
+
+.repcontainer[data-groupname="repeating_abilities"] input[type=text] {
+    width: 100%;
+}
+
+.repcontainer[data-groupname="repeating_abilities"] input.ability-collapse[value="1"] + .ability-body {
+    display: none;
+}
+
+.repcontainer[data-groupname="repeating_abilities"] .collapse-header {
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: fit-content(100%) 1fr fit-content(100%) fit-content(100%) fit-content(100%);
+}
+
+.repcontainer[data-groupname="repeating_abilities"] .collapse-header button {
+    width: 12px;
+}
+
+.repcontainer[data-groupname="repeating_abilities"] .collapse-attack-top {
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: fit-content(100%) 1fr fit-content(100%) fit-content(100%) fit-content(100%) fit-content(100%);
+}
+
+.repcontainer[data-groupname="repeating_abilities"] .collapse-attack-bottom {
+    display: grid;
+    grid-gap: 3px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.repcontainer[data-groupname="repeating_abilities"] .collapse-attack-top span {
+    position: relative;
+    top: 4px;
 }

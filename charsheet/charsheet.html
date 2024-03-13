@@ -25,54 +25,72 @@
 <input type="hidden" name="attr_sheet_tab" value="main" />
 <div id="tab_holder">
     <button type="action" name="act_main"><span>Character</span></button>
-    <button type="action" name="act_level"><span>Level-Up</span></button>
     <button type="action" name="act_equipment"><span>Equipment</span></button>
+    <button type="action" name="act_level"><span>Level-Up</span></button>
     <button type="action" name="act_roleplay"><span>Roleplay</span></button>
     <button type="action" name="act_cheatsheet"><span>Cheatsheet</span></button>
 </div>
 
 
 
-<div id="button_box" class="container-style">
-    <div class="hr"></div><span>TRAIT ROLLS</span><div class="hr"></div>
 
-    <button type="action" name="act_agility"><input type="number" name="attr_agility" readonly="true"/><span>Agility</span></button>
-    <button type="action" name="act_apothecary"><input type="number" name="attr_apothecary" readonly="true"/><span>Apothecary</span></button>
-    <button type="action" name="act_bargain"><input type="number" name="attr_bargain" readonly="true"/><span>Bargain</span></button>
-    <button type="action" name="act_communication"><input type="number" name="attr_communication" readonly="true"/><span>Communication</span></button>
-    <button type="action" name="act_detection"><input type="number" name="attr_detection" readonly="true"/><span>Detection</span></button>
-    <button type="action" name="act_engineering"><input type="number" name="attr_engineering" readonly="true"/><span>Engineering</span></button>
-    <button type="action" name="act_entertainment"><input type="number" name="attr_entertainment" readonly="true"/><span>Entertainment</span></button>
-    <button type="action" name="act_etiquette"><input type="number" name="attr_etiquette" readonly="true"/><span>Etiquette</span></button>
-    <button type="action" name="act_handiwork"><input type="number" name="attr_handiwork" readonly="true"/><span>Handiwork</span></button>
-    <button type="action" name="act_history"><input type="number" name="attr_history" readonly="true"/><span>History</span></button>
-    <button type="action" name="act_intuition"><input type="number" name="attr_intuition" readonly="true"/><span>Intuition</span></button>
-    <button type="action" name="act_magic"><input type="number" name="attr_magic" readonly="true"/><span>Magic</span></button>
-    <button type="action" name="act_might"><input type="number" name="attr_might" readonly="true"/><span>Might</span></button>
-    <button type="action" name="act_navigation"><input type="number" name="attr_navigation" readonly="true"/><span>Navigation</span></button>
-    <button type="action" name="act_perseverance"><input type="number" name="attr_perseverance" readonly="true"/><span>Perseverance</span></button>
-    <button type="action" name="act_profession"><input type="number" name="attr_profession" readonly="true"/><span>Profession</span></button>
-    <button type="action" name="act_religion"><input type="number" name="attr_religion" readonly="true"/><span>Religion</span></button>
-    <button type="action" name="act_soothe"><input type="number" name="attr_soothe" readonly="true"/><span>Soothe</span></button>
-    <button type="action" name="act_stealth"><input type="number" name="attr_stealth" readonly="true"/><span>Stealth</span></button>
-    <button type="action" name="act_threat"><input type="number" name="attr_threat" readonly="true"/><span>Threat</span></button>
-    <button type="action" name="act_wilderness"><input type="number" name="attr_wilderness" readonly="true"/><span>Wilderness</span></button>
 
-    <div class="hr"></div><span>DIFFICULTY CHECKS</span><div class="hr"></div>
-
-    <button type="action" name="act_reflex"><input type="number" name="attr_reflex" readonly="true"/><span>Reflex</span></button>
-    <button type="action" name="act_strength"><input type="number" name="attr_strength" readonly="true"/><span>Strength</span></button>
-    <button type="action" name="act_toughness"><input type="number" name="attr_toughness" readonly="true"/><span>Toughness</span></button>
-    <button type="action" name="act_heart"><input type="number" name="attr_heart" readonly="true"/><span>Heart</span></button>
-    <button type="action" name="act_mind"><input type="number" name="attr_mind" readonly="true"/><span>Mind</span></button>
-    <button type="action" name="act_soul"><input type="number" name="attr_soul" readonly="true"/><span>Soul</span></button>
-
-    <div class="hr"></div><span>DEFENSIVE ACTIONS</span><div class="hr"></div>
-
-    <button type="action" name="act_block"><input type="number" name="attr_block" readonly="true"/><span>Block</span></button>
-    <button type="action" name="act_dodge"><input type="number" name="attr_dodge" readonly="true"/><span>Dodge</span></button>
-    <button type="action" name="act_parry"><input type="number" name="attr_parry" readonly="true"/><span>Parry</span></button>
+<input type="hidden" name="attr_button_box_dock" />
+<div id="undocked_button_box" class="container-style">
+    <button class="small button-box-docker" name="act_docker"></button>
+    <div class="button-box">
+        <div class="hr"></div><span>GLOBAL MODS</span><div class="hr"></div>
+    
+        <span>ADVANTAGE</span>
+        <span>MODIFIER</span>
+        <span>CRIT. MINIMUM</span>
+    
+        <input type="number" name="attr_advantage" />
+        <input type="number" name="attr_modifier" />
+        <input type="number" name="attr_minimum" />
+    
+        <div class="hr"></div><span>TRAIT ROLLS</span><div class="hr"></div>
+    
+        <button type="action" name="act_agility"><input type="number" name="attr_agility" readonly="true"/><span>Agility</span></button>
+        <button type="action" name="act_apothecary"><input type="number" name="attr_apothecary" readonly="true"/><span>Apothecary</span></button>
+        <button type="action" name="act_bargain"><input type="number" name="attr_bargain" readonly="true"/><span>Bargain</span></button>
+        <button type="action" name="act_communication"><input type="number" name="attr_communication" readonly="true"/><span>Communication</span></button>
+        <button type="action" name="act_detection"><input type="number" name="attr_detection" readonly="true"/><span>Detection</span></button>
+        <button type="action" name="act_engineering"><input type="number" name="attr_engineering" readonly="true"/><span>Engineering</span></button>
+        <button type="action" name="act_entertainment"><input type="number" name="attr_entertainment" readonly="true"/><span>Entertainment</span></button>
+        <button type="action" name="act_etiquette"><input type="number" name="attr_etiquette" readonly="true"/><span>Etiquette</span></button>
+        <button type="action" name="act_handiwork"><input type="number" name="attr_handiwork" readonly="true"/><span>Handiwork</span></button>
+        <button type="action" name="act_history"><input type="number" name="attr_history" readonly="true"/><span>History</span></button>
+        <button type="action" name="act_intuition"><input type="number" name="attr_intuition" readonly="true"/><span>Intuition</span></button>
+        <button type="action" name="act_magic"><input type="number" name="attr_magic" readonly="true"/><span>Magic</span></button>
+        <button type="action" name="act_might"><input type="number" name="attr_might" readonly="true"/><span>Might</span></button>
+        <button type="action" name="act_navigation"><input type="number" name="attr_navigation" readonly="true"/><span>Navigation</span></button>
+        <button type="action" name="act_perseverance"><input type="number" name="attr_perseverance" readonly="true"/><span>Perseverance</span></button>
+        <button type="action" name="act_profession"><input type="number" name="attr_profession" readonly="true"/><span>Profession</span></button>
+        <button type="action" name="act_religion"><input type="number" name="attr_religion" readonly="true"/><span>Religion</span></button>
+        <button type="action" name="act_soothe"><input type="number" name="attr_soothe" readonly="true"/><span>Soothe</span></button>
+        <button type="action" name="act_stealth"><input type="number" name="attr_stealth" readonly="true"/><span>Stealth</span></button>
+        <button type="action" name="act_threat"><input type="number" name="attr_threat" readonly="true"/><span>Threat</span></button>
+        <button type="action" name="act_wilderness"><input type="number" name="attr_wilderness" readonly="true"/><span>Wilderness</span></button>
+    
+        <div class="hr"></div><span>DIFFICULTY CHECKS</span><div class="hr"></div>
+    
+        <button type="action" name="act_reflex"><input type="number" name="attr_reflex" readonly="true"/><span>Reflex</span></button>
+        <button type="action" name="act_strength"><input type="number" name="attr_strength" readonly="true"/><span>Strength</span></button>
+        <button type="action" name="act_toughness"><input type="number" name="attr_toughness" readonly="true"/><span>Toughness</span></button>
+        <button type="action" name="act_heart"><input type="number" name="attr_heart" readonly="true"/><span>Heart</span></button>
+        <button type="action" name="act_mind"><input type="number" name="attr_mind" readonly="true"/><span>Mind</span></button>
+        <button type="action" name="act_soul"><input type="number" name="attr_soul" readonly="true"/><span>Soul</span></button>
+    
+        <div class="hr"></div><span>DEFENSIVE ACTIONS</span><div class="hr"></div>
+    
+        <button type="action" name="act_block"><input type="number" name="attr_block" readonly="true"/><span>Block</span></button>
+        <button type="action" name="act_dodge"><input type="number" name="attr_dodge" readonly="true"/><span>Dodge</span></button>
+        <button type="action" name="act_parry"><input type="number" name="attr_parry" readonly="true"/><span>Parry</span></button>
+    </div>
 </div>
+
+
 
 
 
@@ -82,121 +100,220 @@
 <div id="page_main">
 
 
-
-    <div id="character_box" class="container-style">
-        <div>
+    <div class="container-style">
+        <div id="character_box" class="main-width">
             <span>NAME</span>
-            <input type="text" name="attr_character_name"/>
-        </div>
-        <div class="vr"></div>
-        <div>
             <span>SPECIES</span>
+            <input type="text" name="attr_character_name"/>
             <input type="text" name="attr_character_species" />
-        </div>
-        <div class="vr"></div>
-        <div>
+
             <span>GENDER</span>
-            <input type="text" name="attr_character_gender" />
-        </div>
-        <div class="vr"></div>
-        <div>
             <span>PLAYER</span>
+            <input type="text" name="attr_character_gender" />
             <input type="text" name="attr_character_player" />
-        </div>
-        <div>
+
             <span>BACKGROUND</span>
-            <input type="text" name="attr_character_background" />
-        </div>
-        <div class="vr"></div>
-        <div>
             <span>AGE</span>
+            <input type="text" name="attr_character_background" />
             <input type="text" name="attr_character_age" />
-        </div>
-        <div class="vr"></div>
-        <div>
+
             <span>SIZE</span>
-            <input type="text" name="attr_character_size" />
-        </div>
-        <div class="vr"></div>
-        <div>
             <span>CLASS(ES)</span>
+            <input type="text" name="attr_character_size" />
             <input type="text" name="attr_character_class" />
         </div>
+        <span class="character-box-span">PHYSICAL DESCRIPTION</span>
+        <textarea class="main-width" name="attr_appearance_text"></textarea>
+    </div>
+
+
+    <div id="docked_button_box" class="container-style">
+        <button class="small button-box-docker" name="act_button_box_docker"></button>
+        <div class="button-box">
+            <div class="hr"></div><span>GLOBAL MODS</span><div class="hr"></div>
+        
+            <span>ADVANTAGE</span>
+            <span>MODIFIER</span>
+            <span>CRIT. MINIMUM</span>
+        
+            <input type="number" name="attr_advantage" />
+            <input type="number" name="attr_modifier" />
+            <input type="number" name="attr_minimum" />
+        
+            <div class="hr"></div><span>TRAIT ROLLS</span><div class="hr"></div>
+        
+            <button type="action" name="act_agility"><input type="number" name="attr_agility" readonly="true"/><span>Agility</span></button>
+            <button type="action" name="act_apothecary"><input type="number" name="attr_apothecary" readonly="true"/><span>Apothecary</span></button>
+            <button type="action" name="act_bargain"><input type="number" name="attr_bargain" readonly="true"/><span>Bargain</span></button>
+            <button type="action" name="act_communication"><input type="number" name="attr_communication" readonly="true"/><span>Communication</span></button>
+            <button type="action" name="act_detection"><input type="number" name="attr_detection" readonly="true"/><span>Detection</span></button>
+            <button type="action" name="act_engineering"><input type="number" name="attr_engineering" readonly="true"/><span>Engineering</span></button>
+            <button type="action" name="act_entertainment"><input type="number" name="attr_entertainment" readonly="true"/><span>Entertainment</span></button>
+            <button type="action" name="act_etiquette"><input type="number" name="attr_etiquette" readonly="true"/><span>Etiquette</span></button>
+            <button type="action" name="act_handiwork"><input type="number" name="attr_handiwork" readonly="true"/><span>Handiwork</span></button>
+            <button type="action" name="act_history"><input type="number" name="attr_history" readonly="true"/><span>History</span></button>
+            <button type="action" name="act_intuition"><input type="number" name="attr_intuition" readonly="true"/><span>Intuition</span></button>
+            <button type="action" name="act_magic"><input type="number" name="attr_magic" readonly="true"/><span>Magic</span></button>
+            <button type="action" name="act_might"><input type="number" name="attr_might" readonly="true"/><span>Might</span></button>
+            <button type="action" name="act_navigation"><input type="number" name="attr_navigation" readonly="true"/><span>Navigation</span></button>
+            <button type="action" name="act_perseverance"><input type="number" name="attr_perseverance" readonly="true"/><span>Perseverance</span></button>
+            <button type="action" name="act_profession"><input type="number" name="attr_profession" readonly="true"/><span>Profession</span></button>
+            <button type="action" name="act_religion"><input type="number" name="attr_religion" readonly="true"/><span>Religion</span></button>
+            <button type="action" name="act_soothe"><input type="number" name="attr_soothe" readonly="true"/><span>Soothe</span></button>
+            <button type="action" name="act_stealth"><input type="number" name="attr_stealth" readonly="true"/><span>Stealth</span></button>
+            <button type="action" name="act_threat"><input type="number" name="attr_threat" readonly="true"/><span>Threat</span></button>
+            <button type="action" name="act_wilderness"><input type="number" name="attr_wilderness" readonly="true"/><span>Wilderness</span></button>
+        
+            <div class="hr"></div><span>DIFFICULTY CHECKS</span><div class="hr"></div>
+        
+            <button type="action" name="act_reflex"><input type="number" name="attr_reflex" readonly="true"/><span>Reflex</span></button>
+            <button type="action" name="act_strength"><input type="number" name="attr_strength" readonly="true"/><span>Strength</span></button>
+            <button type="action" name="act_toughness"><input type="number" name="attr_toughness" readonly="true"/><span>Toughness</span></button>
+            <button type="action" name="act_heart"><input type="number" name="attr_heart" readonly="true"/><span>Heart</span></button>
+            <button type="action" name="act_mind"><input type="number" name="attr_mind" readonly="true"/><span>Mind</span></button>
+            <button type="action" name="act_soul"><input type="number" name="attr_soul" readonly="true"/><span>Soul</span></button>
+        
+            <div class="hr"></div><span>DEFENSIVE ACTIONS</span><div class="hr"></div>
+        
+            <button type="action" name="act_block"><input type="number" name="attr_block" readonly="true"/><span>Block</span></button>
+            <button type="action" name="act_dodge"><input type="number" name="attr_dodge" readonly="true"/><span>Dodge</span></button>
+            <button type="action" name="act_parry"><input type="number" name="attr_parry" readonly="true"/><span>Parry</span></button>
+        </div>
     </div>
 
 
 
-    <div id="attribute_box" class="container-style">
-        <div>
-            <span>Health</span>
-            <input type="number" name="attr_health" />
-            <input type="number" name="attr_health_max" readonly="true" />
+    <div class="container-style">
+        <div id="attribute_box" class="main-width">
+            <div>
+                <span>Health</span>
+                <input type="number" name="attr_health" />
+                <input type="number" name="attr_health_max" readonly="true" />
+            </div>
+            <div>
+                <span>Mana</span>
+                <input type="number" name="attr_mana" />
+                <input type="number" name="attr_mana_max" readonly="true" />
+            </div>
+            <div>
+                <span>Death Stacks</span>
+                <input type="number" name="attr_deathstacks" />
+                <input type="number" name="attr_deathstacks_max" readonly="true" />
+            </div>
+            <div>
+                <span>Equip. Slots</span>
+                <input type="number" name="attr_equipslots" />
+                <input type="number" name="attr_equipslots_max" readonly="true" />
+            </div>
+            <div>
+                <span>Rest Points</span>
+                <input type="number" name="attr_rest" />
+                <input type="number" name="attr_rest_max" readonly="true" />
+            </div>
+            <div>
+                <span>Gold</span>
+                <input type="number" name="attr_rest" />
+                <input type="number" name="attr_rest_max" readonly="true" />
+            </div>
+            <div>
+                <span>Fatigue</span>
+                <input type="number" name="attr_rest" />
+                <input type="number" name="attr_rest_max" readonly="true" />
+            </div>
+            <div>
+                <span>Level</span>
+                <input type="number" name="attr_level" />
+            </div>
         </div>
-        <div>
-            <span>Mana</span>
-            <input type="number" name="attr_mana" />
-            <input type="number" name="attr_mana_max" readonly="true" />
-        </div>
-        <div>
-            <span>Death Stacks</span>
-            <input type="number" name="attr_deathstacks" />
-            <input type="number" name="attr_deathstacks_max" readonly="true" />
-        </div>
-        <div>
-            <span>Equip. Slots</span>
-            <input type="number" name="attr_equipslots" />
-            <input type="number" name="attr_equipslots_max" readonly="true" />
-        </div>
-        <div>
-            <span>Rest Points</span>
-            <input type="number" name="attr_rest" />
-            <input type="number" name="attr_rest_max" readonly="true" />
-        </div>
+        <textarea class="main-width" name="attr_health_text"></textarea>
     </div>
-
-
     
-    <div class="tolerance-box">
-        <div>
+
+    <div class="container-style">
+        <div id="tolerance_box" class="main-width">
             <span>Acid</span>
-            <input type="number" readonly="true" name="attr_acid"/>
-        </div>
-        <div>
             <span>Cold</span>
-            <input type="number" readonly="true" name="attr_cold"/>
-        </div>
-        <div>
             <span>Death</span>
-            <input type="number" readonly="true" name="attr_death"/>
-        </div>
-        <div>
             <span>Electric</span>
-            <input type="number" readonly="true" name="attr_electric"/>
-        </div>
-        <div>
             <span>Fire</span>
-            <input type="number" readonly="true" name="attr_fire"/>
-        </div>
-        <div>
             <span>Luminous</span>
-            <input type="number" readonly="true" name="attr_luminous"/>
-        </div>
-        <div>
             <span>Physical</span>
-            <input type="number" readonly="true" name="attr_physical"/>
-        </div>
-        <div>
             <span>Poison</span>
-            <input type="number" readonly="true" name="attr_poison"/>
-        </div>
-        <div>
             <span>Psychic</span>
-            <input type="number" readonly="true" name="attr_psychic"/>
-        </div>
-        <div>
             <span>Sonic</span>
+
+            <input type="number" readonly="true" name="attr_acid"/>
+            <input type="number" readonly="true" name="attr_cold"/>
+            <input type="number" readonly="true" name="attr_death"/>
+            <input type="number" readonly="true" name="attr_electric"/>
+            <input type="number" readonly="true" name="attr_fire"/>
+            <input type="number" readonly="true" name="attr_luminous"/>
+            <input type="number" readonly="true" name="attr_physical"/>
+            <input type="number" readonly="true" name="attr_poison"/>
+            <input type="number" readonly="true" name="attr_psychic"/>
             <input type="number" readonly="true" name="attr_sound"/>
         </div>
+    </div>
+
+
+
+    <div class="container-style main-width">
+        <span>Hover over any field to see what it does!</span>
+        <fieldset class="repeating_abilities">
+            <div class="hr"></div>
+            <input class="ability-layout" type="hidden" name="attr_ability_layout" value="1" />
+            <div class="ability-content main-width">
+                <div class="collapse-header">
+                    <button type="action" name="act_collapse" title="Show/Hide Details"></button>
+
+                    <input type="text" name="attr_ability_name" title="Name" />
+    
+                    <div class="collapse-uses">
+                        <input type="number" name="attr_ability_uses" title="Remaining Uses" />
+                        <span>/</span>
+                        <input type="number" name="attr_ability_uses_max" title="Max Uses" />
+                    </div>
+    
+                    <button type="action" name="act_layout" title="Change Layout"></button>
+                </div>
+        
+                <input class="ability-collapse" type="hidden" name="attr_ability_collapse" value="1" />
+                <div class="ability-body">
+                    <div class="ability-attack">
+                        <div class="collapse-attack-top">
+                            <input type="number" name="attr_ability_damage" title="Damage" />
+                            <input type="text" name="attr_ability_damage_type" title="Damage Type" />
+                            <span>+</span>
+                            <input type="number" name="attr_ability_brutal" title="Brutal Damage" />
+                
+                            <input type="hidden" name="attr_ability_charge" />
+                            <button type="action" name="act_charge" title="Is your weapon charged?" ><span>Charged</span><span>Uncharged</span></button>
+                            
+                            <input type="hidden" name="attr_ability_load" />
+                            <button type="action" name="act_load" class="non-melee" title="Is your weapon loaded?" ><span>Loaded</span><span>Unloaded</span></button>
+                        </div>
+        
+                        <div class="collapse-attack-bottom">
+                            <button type="action" class="melee" name="act_melee"><input type="number" name="attr_melee" readonly="true" title="Make a melee attack!" /><span>Melee</span></button>
+                            <input type="number" class="melee" name="attr_ability_melee_range" title="Melee Range" />
+                
+                            <button type="action" class="non-melee" name="act_ranged"><input type="number" name="attr_ranged" readonly="true" title="Make a ranged attack!" /><span>Ranged</span></button>
+                            <input type="number" class="non-melee" name="attr_ability_ranged_range" title="Ranged Range" />
+                
+                            <button type="action" class="melee" name="act_thrown"><input type="number" name="attr_thrown" readonly="true" title="Make a thrown attack!" /><span>Thrown</span></button>
+                            <input type="number" class="melee" name="attr_ability_thrown_range" title="Thrown Range" />
+                
+                            <button type="action" class="non-melee" name="act_spell"><input type="number" name="attr_spell" readonly="true" title="Make a spell attack!" /><span>Spell</span></button>
+                            <input type="number" class="non-melee" name="attr_ability_spell_range" title="Spell Range" />
+                        </div>
+                    </div>
+            
+                    <div class="collapse-description">
+                        <textarea class="main-width" name="attr_ability_text" title="Ability Description"></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
     </div>
 
 
@@ -271,9 +388,30 @@
     These rolls are therefore entirely secured through obscurity, much to my displeasure. -->
 
     <div class="sheet-template-container" style="border-style:groove; padding:5px;">
-        <span style="width:40%; float:right; text-align: right; margin-top:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size: 13px;">{{character_name}}</span>
+        <span style="font-size: 12px; opacity: 50%; position: relative; bottom: 6px; left: 10px;">GLOBAL MODIFIERS HAVE BEEN APPLIED</span>
+
+        <!-- If crit success, show crit roll value in green -->
+        {{#rollGreater() computed::roll roll}}
+            <span style="font-size: 14px; color: #00D300;">{{computed::roll}}</span>
+        {{/rollGreater() computed::roll roll}}
         
-        <h4 style="color:#00D300;">{{computed::roll}}</h4>
+        <!-- If fumble, show fumble roll value in red -->
+        {{#rollLess() computed::roll roll}}
+            <span style="font-size: 14px; color: red;">{{computed::roll}}</span>
+        {{/rollLess() computed::roll roll}}
+        
+        <!-- Otherwise, show default roll value -->
+        {{#rollTotal() computed::roll roll}}
+            <span style="font-size: 14px;">{{computed::roll}}</span>
+        {{/rollTotal() computed::roll roll}}
+
+
+
+        <span style="display: inline; margin-left: 2px; font-size: 16px; font-weight: bold;">{{roll_name}}</span>
+
+
+
+        <span style="width:40%; float:right; text-align: right; margin-top:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size: 13px;">{{character_name}}</span>
     </div>
 </rolltemplate>
 
@@ -285,14 +423,45 @@
 <!-- SCRIPT -->
 <!------------>
 <script type="text/worker">
+    // Utility functions
+    const capitalizeFirstLetter = function (input) {
+        if(input.length >= 2){
+            return input.charAt(0).toUpperCase() + input.slice(1);
+        } else {
+            return input.toUpperCase();
+        }
+    }
+
+
+
     // Switches pages
-    const pagelist = ["main","level","equipment","cheatsheet","roleplay"];
-    pagelist.forEach(page => {
-        on(`clicked:${page}`, function() {
-            pagelist.forEach(sheet => $20(`#sheet_${sheet}`).addClass("hidden"));
-            $20("#sheet_" + page).removeClass("hidden");
-            currentPage = page;
+    const pagelist = ["main","equipment","level","cheatsheet","roleplay"];
+    pagelist.forEach(pagebutton => {
+        on(`clicked:${pagebutton}`, function() {
+            pagelist.forEach(page => $20(`#page_${page}`).addClass("hidden"));
+            $20("#page_" + pagebutton).removeClass("hidden");
         });
+    });
+
+
+
+
+
+    on('clicked:docker sheet:opened', (info) => {
+        console.log("TPTODO");
+        getAttrs(["button_box_dock"], function(data) {
+            let val = (parseInt(data.button_box_dock) === 1);
+            if(val){
+                $20("#undocked_button_box").removeClass("hidden");
+                $20("#docked_button_box").addClass("hidden");
+            } else {
+                $20("#undocked_button_box").addClass("hidden");
+                $20("#docked_button_box").removeClass("hidden");
+            }
+            setAttrs({
+                button_box_dock: (val ? 0 : 1)
+            });
+        })
     });
 
 
@@ -304,7 +473,7 @@
     traitlist.forEach(trait => {
         on(`clicked:${trait}`, function() {
             getAttrs(["character_name"], function(data) {
-                _makeRoll(data);
+                _makeRoll({"bonus": 0, "advantage": 0, "critMin": 20, "character_name": data.character_name, "roll_name": capitalizeFirstLetter(trait)});
             })
         });
     });
@@ -312,16 +481,45 @@
     const DClist = ["reflex", "strength", "toughness", "heart", "mind", "soul"];
     DClist.forEach(DC => {
         on(`clicked:${DC}`, function() {
-            _makeRoll({"bonus": 0, "advantage": 0, "critMin": 20});
+            getAttrs(["character_name"], function(data) {
+                _makeRoll({"bonus": 0, "advantage": 0, "critMin": 20, "character_name": data.character_name, "roll_name": capitalizeFirstLetter(DC)});
+            })
         });
     });
 
     const defenselist = ["block", "dodge", "parry"]
     defenselist.forEach(defense => {
         on(`clicked:${defense}`, function() {
-            _makeRoll({"bonus": 0, "advantage": 0, "critMin": 20});
+            getAttrs(["character_name"], function(data) {
+                _makeRoll({"bonus": 0, "advantage": 0, "critMin": 20, "character_name": data.character_name, "roll_name": capitalizeFirstLetter(defense)});
+            })
         });
     });
+
+
+
+
+
+    on('clicked:repeating_abilities:collapse', function() {
+        getAttrs(["repeating_abilities_ability_collapse"], function(values) {
+            setAttrs({
+                repeating_abilities_ability_collapse: (parseInt(values.repeating_abilities_ability_collapse) === 1 ? 0 : 1)
+            });
+        })
+    });
+    
+    
+    
+    on('clicked:repeating_abilities:layout', function() {
+        getAttrs(["repeating_abilities_ability_layout"], function(values) {
+            let result = values.repeating_abilities_ability_layout + 1;
+            result = (result > 6 ? 1 : result);
+            setAttrs({
+                repeating_abilities_ability_layout: result
+            });
+        })
+    });
+
 
 
 
@@ -338,7 +536,7 @@
             rollText = `[[2 + ${data.advantage} * -1]]d10kl2cs>21cf<0 + ${data.bonus}`;
         }
 
-        startRoll(`&{template:r_template} {{roll=[[${rollText}]]}} {{character_name=${data.character_name}}}`, (results) => {
+        startRoll(`&{template:r_template} {{roll=[[${rollText}]]}} {{character_name=${data.character_name}}} {{roll_name=${data.roll_name}}}`, (results) => {
             let original = results.results.roll.result;
             let computed = original - data.bonus;
             
